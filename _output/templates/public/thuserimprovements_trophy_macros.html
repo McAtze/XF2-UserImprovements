@@ -1,4 +1,4 @@
-<xf:macro name="user_trophy_item" arg-trophy="!" arg-visitorEarnt="{{ false }}">
+<xf:macro name="user_trophy_item" arg-trophy="!" arg-visitorEarnt="{{ false }}" arg-description="{{ true }}">
 	<li class="block-row block-row--separated">
 		<div class="contentRow">
 			<span class="contentRow-figure contentRow-figure--text contentRow-figure--fixedSmall">
@@ -23,13 +23,15 @@
 						</xf:if>
 					</xf:if>
 				</h2>
-				<div class="contentRow-minor">
-					<xf:if is="$trophy.Trophy.th_hidden && !$visitorEarnt">
-						{{ phrase('thuserimprovements_hidden_trophy_desc') }}
-						<xf:else />
-						{$trophy.Trophy.description|raw}
-					</xf:if>
-				</div>
+				<xf:if is="$description">
+					<div class="contentRow-minor">
+						<xf:if is="$trophy.Trophy.th_hidden && !$visitorEarnt">
+							{{ phrase('thuserimprovements_hidden_trophy_desc') }}
+							<xf:else />
+							{$trophy.Trophy.description|raw}
+						</xf:if>
+					</div>
+				</xf:if>
 			</div>
 		</div>
 	</li>
@@ -38,9 +40,9 @@
 <xf:macro name="trophy" arg-trophy="!" arg-extraCss="">
 	<xf:if is="$trophy.th_icon_type === 'fa'">
 		<i class="fa fa-{$trophy.th_icon_value} {$trophy.th_icon_value}" style="{$extraCss}"></i>
-	<xf:elseif is="$trophy.th_icon_type === 'image'" />
+		<xf:elseif is="$trophy.th_icon_type === 'image'" />
 		<img src="{$trophy.th_icon_value}" style="max-width: 60px; max-height: 38px;" style="{$extraCss}" />
-	<xf:else />
+		<xf:else />
 		<span style="{$extraCss}">{$trophy.trophy_points|number_short}</span>
 	</xf:if>
 </xf:macro>
@@ -114,10 +116,11 @@
 	</li>
 </xf:macro>
 
-<xf:macro name="small_trophy" arg-trophy="!" arg-current="{{ false }}" arg-earned="{{ false }}" arg-showRecentlyAwardedUsers="{{ false }}">
+<xf:macro name="small_trophy" arg-trophy="!" arg-current="{{ false }}"
+		  arg-earned="{{ false }}" arg-showRecentlyAwardedUsers="{{ false }}">
 	<li class="block-row block-row--separated{{ $current ? ' trophy--current' : '' }}{{ $earned ? ' trophy--earned' : '' }}">
 		<h3 class="contentRow-header">
-			<xf:if is="!$earned && $trophy->th_hidden">
+			<xf:if is="!$earned && $trophy.th_hidden">
 				{{ phrase('thuserimprovements_hidden_trophy') }}
 				<xf:else />
 				<a href="{{ link('trophies', $trophy) }}">{$trophy.title}</a>
@@ -126,11 +129,11 @@
 			<xf:if is="$trophy.trophy_points && $xf.options.klUIShowPoints">
 				<xf:if is="$trophy.trophy_points === 1">
 					<span data-xf-init="tooltip" title="{{ phrase('thuserimprovements_one_trophy_point') }}">
-					{{ phrase('thuserimprovements_one_trophy_point') }}
+						{{ phrase('thuserimprovements_one_trophy_point') }}
 					</span>
 					<xf:else />
 					<span data-xf-init="tooltip" title="{{ phrase('thuserimprovements_x_trophy_points', {'points': {$trophy.trophy_points|number}}) }}">
-					{{ phrase('thuserimprovements_x_trophy_points', {'points': {$trophy.trophy_points|number_short}}) }}
+						{{ phrase('thuserimprovements_x_trophy_points', {'points': {$trophy.trophy_points|number_short}}) }}
 					</span>
 				</xf:if>
 			</xf:if>
