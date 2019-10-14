@@ -100,11 +100,12 @@ class User extends XFCP_User
 
     /**
      * @param null $position
+     * @param null $limit
      * @return ArrayCollection|array
      */
-    public function getTHUIHighestTrophies($position = null)
+    public function getTHUIHighestTrophies($position = null, $limit = null)
     {
-        $limit = $this->getTHUITrophyShowcaseSize($position);
+        $limit = $limit ?: $this->getTHUITrophyShowcaseSize($position);
 
         if (!$limit) {
             return [];
@@ -143,11 +144,12 @@ class User extends XFCP_User
 
     /**
      * @param null $position
+     * @param null $limit
      * @return ArrayCollection|array
      */
-    public function getTHUIUserChoiceTrophies($position = null)
+    public function getTHUIUserChoiceTrophies($position = null, $limit = null)
     {
-        $limit = $this->getTHUITrophyShowcaseSize($position);
+        $limit = $limit ?: $this->getTHUITrophyShowcaseSize($position);
 
         if (!$limit) {
             return [];
@@ -170,11 +172,12 @@ class User extends XFCP_User
 
     /**
      * @param null $position
+     * @param null $limit
      * @return ArrayCollection|array
      */
-    public function getTHUILatestTrophies($position = null)
+    public function getTHUILatestTrophies($position = null, $limit = null)
     {
-        $limit = $this->getTHUITrophyShowcaseSize($position);
+        $limit = $limit ?: $this->getTHUITrophyShowcaseSize($position);
 
         if (!$limit) {
             return [];

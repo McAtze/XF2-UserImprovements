@@ -1,0 +1,15 @@
+<xf:if is="$trophies is not empty">
+	<div class="block"{{ widget_data($widget) }}>
+		<div class="block-container">
+			<h3 class="block-minorHeader">{$title}</h3>
+			<div class="block-body block-row">
+				<xf:foreach loop="$trophies" value="$trophy">
+					<xf:macro name="user_trophy_item"
+							  template="thuserimprovements_trophy_macros"
+							  arg-description="{{ false }}"
+							  arg-trophy="{$trophy}" />
+				</xf:foreach>
+			</div>
+		</div>
+	</div>
+</xf:if>

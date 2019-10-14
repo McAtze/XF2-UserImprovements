@@ -41,7 +41,7 @@ class CriteriaUser
             /* User name changes */
             case 'th_min_username_changes':
             case 'kl_ui_min_username_changes':
-                if ($user->THUIUsernameHistory->count() >= $data['count']) {
+                if ($user->THUIUsernameHistory && $user->THUIUsernameHistory->count() >= $data['count']) {
                     $returnValue = true;
                 }
                 break;
@@ -49,7 +49,7 @@ class CriteriaUser
             /* User name changes */
             case 'th_max_username_changes':
             case 'kl_ui_max_username_changes':
-                if ($user->THUIUsernameHistory->count() <= $data['count']) {
+                if (!$user->THUIUsernameHistory || $user->THUIUsernameHistory->count() <= $data['count']) {
                     $returnValue = true;
                 }
                 break;
